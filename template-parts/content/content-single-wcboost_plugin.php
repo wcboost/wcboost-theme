@@ -7,6 +7,7 @@
  * @package WCBoost
  */
 
+$slug = wcboost_item_prop( 'wporg_slug' ) ?? $GLOBALS['post']->post_name;
 ?>
 
 <div id="plugin-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -33,7 +34,7 @@
 
 		<div class="plugin-sidebar">
 			<div class="plugin-sidebar__box plugin-sidebar__download">
-				<a class="button button--large button--full" href="<?php echo esc_url( wcboost_item_prop( 'download_url' ) ) ?>" onclick="if ( ! this.getAttribute( 'href' ) || '#' === this.href ) {  alert('<?php esc_attr_e( 'The download link will be available soon', 'wcboost' ) ?>'); return false; }" target="_blank"><?php esc_html_e( 'Download', 'wcboost' ) ?></a>
+				<a class="button button--large button--full" href="<?php echo esc_url( wcboost_item_prop( 'download_link' ) ?? 'https://wordpress.org/plugin/' . $slug ); ?>" onclick="if ( ! this.getAttribute( 'href' ) || '#' === this.href ) {  alert('<?php esc_attr_e( 'The download link will be available soon', 'wcboost' ) ?>'); return false; }" target="_blank"><?php esc_html_e( 'Download', 'wcboost' ) ?></a>
 
 				<p>
 					<a href="<?php echo esc_url( wcboost_item_prop( 'docs_url' ) ) ?>" target="_blank">
@@ -42,7 +43,7 @@
 					</a>
 				</p>
 				<p>
-					<a href="<?php echo esc_url( wcboost_item_prop( 'support_url' ) ) ?>">
+					<a href="<?php echo esc_url( wcboost_item_prop( 'support_url' ) ?? 'https://wordpress.org/support/plugin/' . $slug ) ?>" target="_blank">
 						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0zm-5 0a4 4 0 1 1-8 0a4 4 0 0 1 8 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
 						<?php esc_html_e( 'Get support', 'wcboost' ) ?>
 					</a>
@@ -59,26 +60,33 @@
 						<span><?php esc_html_e( 'Last Updated', 'wcboost' ) ?></span>
 						<strong>
 							<?php
-							$modified = strtotime( get_the_modified_date() );
+							$last_updated = wcboost_item_prop( 'last_updated' );
+							$modified = strtotime( $last_updated ?? get_the_modified_date() );
 							echo human_time_diff( $modified ) . ' ' . esc_html__( 'ago', 'wcboost' );
 							?>
 						</strong>
 					</li>
 					<li>
 						<span><?php esc_html_e( 'PHP', 'wcboost' ) ?></span>
-						<strong><?php echo wcboost_item_prop( 'php_version' ); ?></strong>
+						<strong><?php echo wcboost_item_prop( 'php_version' ); ?>+</strong>
 					</li>
 					<li>
 						<span><?php esc_html_e( 'WordPress', 'wcboost' ) ?></span>
-						<strong><?php echo wcboost_item_prop( 'wp_version' ); ?></strong>
+						<strong><?php echo wcboost_item_prop( 'wp_version' ); ?>+</strong>
 					</li>
+					<?php if ( $tested = wcboost_item_prop( 'wp_tested' ) ) : ?>
+						<li>
+							<span><?php esc_html_e( 'WordPress tested with', 'wcboost' ) ?></span>
+							<strong><?php echo esc_html( $tested ); ?></strong>
+						</li>
+					<?php endif; ?>
 					<li>
 						<span><?php esc_html_e( 'WooCommerce', 'wcboost' ) ?></span>
-						<strong><?php echo wcboost_item_prop( 'wc_version' ); ?></strong>
+						<strong><?php echo wcboost_item_prop( 'wc_version' ); ?>+</strong>
 					</li>
 					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 						<li>
-							<span><?php esc_html_e( 'Tested with WooCommerce', 'wcboost' ) ?></span>
+							<span><?php esc_html_e( 'WooCommerce tested with', 'wcboost' ) ?></span>
 							<strong><?php echo WC()->version; ?></strong>
 						</li>
 					<?php endif; ?>

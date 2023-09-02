@@ -3,10 +3,10 @@ Theme Name: WCBoost
 Author: WCBoost
 Theme URI: https://wcboost.com/
 Author URI: https://wcboost.com
-Description: Main theme for website wcboost.com
+Description: Private WordPress theme for wcboost.com
 Version: 0.2
-Tested up to: 5.4
-Requires PHP: 5.6
+Tested up to: 6.3
+Requires PHP: 7.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: wcboost
@@ -55,8 +55,9 @@ Template: maart
 }
 
 .plugin-sidebar__box {
-  padding: 1.5em;
-  margin: 0 0 1.5em;
+  font-size: 0.875rem;
+  padding: 1.5rem;
+  margin: 0 0 1.5rem;
   border-radius: var(--form--border-radius);
   border: var(--form--border-width) solid;
 }
