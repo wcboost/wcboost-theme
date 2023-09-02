@@ -63,7 +63,3 @@ function wcboost_item_prop( $prop, $post_id = false ) {
 	return null;
 }
 
-/**
- * Load "Plugin" post type
- */
-require_once get_theme_file_path( '/inc/post-types.php' );
