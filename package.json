@@ -1,0 +1,49 @@
+{
+	"name": "WCBoost",
+	"version": "1.0.0",
+	"description": "The fast and extendable theme for any kind of website",
+	"author": "WPMarrt",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"WordPress",
+		"Theme",
+		"WooCommerce"
+	],
+	"homepage": "https://wcboost.com/",
+	"devDependencies": {
+		"@wordpress/browserslist-config": "^4.0.1",
+		"@wordpress/eslint-plugin": "^9.0.6",
+		"@wordpress/stylelint-config": "^19.0.5",
+		"autoprefixer": "^10.2.6",
+		"browser-sync": "^2.18.13",
+		"chokidar-cli": "^2.1.0",
+		"dir-archiver": "^1.2.0",
+		"eslint": "^7.28.0",
+		"minimist": "^1.2.2",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.3.0",
+		"postcss-calc": "^8.0.0",
+		"postcss-cli": "^8.3.1",
+		"postcss-css-variables": "^0.18.0",
+		"postcss-custom-media": "^8.0.0",
+		"postcss-discard-duplicates": "^5.0.1",
+		"postcss-focus-within": "^4.0.0",
+		"postcss-nested": "^5.0.5",
+		"rtlcss": "^3.2.0",
+		"sass": "^1.34.1",
+		"stylelint": "^13.13.1",
+		"stylelint-config-recommended-scss": "^4.2.0",
+		"uglify-js": "^3.17.4"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"scripts": {
+		"sass": "sass sass/style.scss:style.css --style=expanded --source-map --watch",
+		"serve": "browser-sync start --https --proxy \"https://wp.test/wcboost/\" --files \"style.css\" --cors",
+		"dev": "run-p sass serve",
+		"make-pot": "wp i18n make-pot . languages/wcboost.pot",
+		"zip": "cd .. && rm -f ../wcboost.zip && zip -r wcboost.zip wcboost/ -x '*/.*' '*.lock' '*.map' '.stylelintrc-css.json' '*.config.js' '*/node_modules/*' '*/src/*' '*/sass/*' '*/package.json' '*/package-lock.json' && cd wcboost",
+		"bundle": "npm run make-pot && npm run complile && npm run zip"
+	}
+}

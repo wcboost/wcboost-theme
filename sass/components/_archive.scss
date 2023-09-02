@@ -1,0 +1,25 @@
+.plugin-header {
+
+	.plugin-thumbnail-link {
+		display: block;
+		border-radius: var(--form--border-radius);
+
+		&:hover {
+			box-shadow: 0px 10px 20px -3px rgba(0,0,0,0.1);
+		}
+	}
+
+	img {
+		border-radius: var(--form--border-radius);
+		display: block;
+	}
+}
+
+.archive .plugin-title {
+	font-size: 1.375rem;
+	margin: 1.5rem 0;
+}
+
+.plugin-summary.entry-content {
+	margin: 1.5rem 0;
+}
