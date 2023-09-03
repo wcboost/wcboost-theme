@@ -15,6 +15,7 @@ Template: maart
 */
 :root {
   --header--item-spacing: 2rem;
+  --site-content--spacing-top: 6rem;
 }
 
 @media (max-width: 767px) {
@@ -48,9 +49,14 @@ Template: maart
     font-size: var(--heading--font-size-h1);
   }
 }
-.docs-page-header {
+.docs-search-header {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.docs-header {
+  text-align: center;
+  margin: 4rem 0 0 0;
 }
 
 .plugin-header {

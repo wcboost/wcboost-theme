@@ -13,8 +13,12 @@ class Docs {
 		add_action( 'wp', [ $this, 'fix_post_excerpt' ], 20 );
 		add_filter( 'body_class', [ $this, 'body_class' ] );
 		add_filter( 'maart_header_background_color', [ $this, 'header_background_color' ] );
-		add_action( 'maart_before_site_content', [ $this, 'page_header' ] );
+		add_action( 'maart_before_site_content', [ $this, 'docs_search_header' ] );
+		add_action( 'maart_before_site_content_container', [ $this, 'page_header' ] );
 		add_filter( 'maart_site_content_container', [ $this, 'content_container' ] );
+		add_filter( 'maart_single_post_header_meta', [ $this, 'docs_post_meta' ] );
+
+		add_filter( 'maart_block_editor_css', [ $this, 'block_editor_css'] );
 	}
 
 	/**
@@ -96,7 +100,7 @@ class Docs {
 	 * @return void
 	 */
 	public function header_background_color( $color ) {
-		if ( $this->is_archive() || $this->is_search() ) {
+		if ( $this->is_single() || $this->is_archive() || $this->is_search() ) {
 			$color = '';
 		}
 
@@ -108,8 +112,19 @@ class Docs {
 	 *
 	 * @return void
 	 */
+	public function docs_search_header() {
+		if ( $this->is_single() || $this->is_archive() || $this->is_search() ) {
+			get_template_part( 'template-parts/page-header/docs-search-header' );
+		}
+	}
+
+	/**
+	 * Load page header for documentation pages
+	 *
+	 * @return void
+	 */
 	public function page_header() {
-		if ( $this->is_search() || $this->is_archive() ) {
+		if ( $this->is_archive() ) {
 			get_template_part( 'template-parts/page-header/page-header-docs' );
 		}
 	}
@@ -127,6 +142,31 @@ class Docs {
 		}
 
 		return $container;
+	}
+
+	/**
+	 * Filter function to change the post meta fields
+	 *
+	 * @param  array $meta_fields
+	 *
+	 * @return array
+	 */
+	public function docs_post_meta( $meta_fields ) {
+		if ( $this->is_single() ) {
+			return [];
+		}
+
+		return $meta_fields;
+	}
+
+	public function block_editor_css( $css ) {
+		$css .= '
+			body.post-type-wcboost_docs {
+				--maart-editor--content-width: var(--container-width--narrow);
+			}
+		';
+
+		return $css;
 	}
 }
 
