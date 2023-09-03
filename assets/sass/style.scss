@@ -30,6 +30,6 @@ Template: maart
 }
 
 @import "components/header";
-@import "components/plugin";
-@import "components/archive";
-@import "components/page-header";
+@import "components/page-header/page-header";
+@import "components/extension/extension";
+@import "components/docs/docs";

@@ -1,0 +1,17 @@
+.tax-wcboost_docs_cat,
+.docs-search-results {
+	--header--divider: 0px;
+}
+
+.docs-search-results {
+
+	.search-header {
+		margin-top: 4rem;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.no-results .search-form {
+		display: none;
+	}
+}

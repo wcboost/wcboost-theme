@@ -26,6 +26,7 @@ add_action( 'init', function() {
  * Add classes to body
  */
 add_filter( 'body_class', function( $class ) {
+	// Adds the grid layout class for plugin archive page.
 	if ( is_post_type_archive( 'wcboost_plugin' ) ) {
 		$class[] = 'blog-layout-grid';
 	}
@@ -37,11 +38,9 @@ add_filter( 'body_class', function( $class ) {
  * Page header
  */
 add_action( 'maart_before_site_content', function() {
-	if ( ! is_post_type_archive( 'wcboost_plugin' ) ) {
-		return;
+	if ( is_post_type_archive( 'wcboost_plugin' ) ) {
+		get_template_part( 'template-parts/page-header/page-header-plugin' );
 	}
-
-	get_template_part( 'template-parts/page-header/page-header-plugin' );
 } );
 
 /**
@@ -82,3 +81,5 @@ add_action( 'admin_init', function() {
         define('ALLOW_UNFILTERED_UPLOADS', true);
     }
 }, 1 );
+
+include __DIR__ . '/inc/docs.php';
