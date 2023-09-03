@@ -6,10 +6,15 @@
 .docs-search-results {
 
 	.search-header {
+		text-align: center;
 		margin-top: 4rem;
 		padding-top: 0;
 		padding-bottom: 0;
 	}
+}
+
+.docs-search-results,
+.tax-wcboost_docs_cat {
 
 	.no-results .search-form {
 		display: none;

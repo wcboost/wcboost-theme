@@ -31,21 +31,20 @@ Template: maart
   display: inline-block;
 }
 
-.page-header {
+.plugin-page-header {
   text-align: center;
   padding: 2rem 0;
 }
-
-.page-header-title {
+.plugin-page-header .page-header-title {
   font-size: var(--heading--font-size-h2);
 }
 
 @media (min-width: 992px) {
-  .page-header {
+  .plugin-page-header {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
-  .page-header-title {
+  .plugin-page-header .page-header-title {
     font-size: var(--heading--font-size-h1);
   }
 }
@@ -158,11 +157,14 @@ Template: maart
 }
 
 .docs-search-results .search-header {
+  text-align: center;
   margin-top: 4rem;
   padding-top: 0;
   padding-bottom: 0;
 }
-.docs-search-results .no-results .search-form {
+
+.docs-search-results .no-results .search-form,
+.tax-wcboost_docs_cat .no-results .search-form {
   display: none;
 }
 
