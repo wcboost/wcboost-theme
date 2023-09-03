@@ -23,8 +23,8 @@
 		"map": false
 	},
 	"scripts": {
-		"watch": "sass sass/style.scss:style.css --style=expanded --source-map --watch",
-		"compile:css": "sass sass/style.scss:style.css --style=expanded --no-source-map",
+		"watch": "sass assets/sass/style.scss:style.css --style=expanded --source-map --watch",
+		"compile:css": "sass assets/sass/style.scss:style.css --style=expanded --no-source-map",
 		"compile:rtl": "rtlcss style.css style-rtl.css"
 	}
 }
