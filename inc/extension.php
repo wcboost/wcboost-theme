@@ -51,6 +51,7 @@ class Extension {
 	public function body_class( $class ) {
 		if ( $this->is_archive() ) {
 			$class[] = 'blog-layout-grid';
+			$class[] = 'wcboost-extension-archive';
 		}
 
 		return $class;

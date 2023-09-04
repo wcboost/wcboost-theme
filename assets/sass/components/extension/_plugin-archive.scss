@@ -16,10 +16,18 @@
 }
 
 .archive .plugin-title {
-	font-size: 1.375rem;
 	margin: 1.5rem 0;
 }
 
 .plugin-summary.entry-content {
 	margin: 1.5rem 0;
+}
+
+@media (min-width: 992px) {
+
+	.wcboost-extension-archive.no-sidebar {
+		--posts-grid--columns: 2;
+		--posts--gap-vertical: 4rem;
+		--posts--gap-horizontal: 3rem;
+	}
 }
