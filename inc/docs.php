@@ -159,6 +159,13 @@ class Docs {
 		return $meta_fields;
 	}
 
+	/**
+	 * Block editor CSS additions for docs
+	 *
+	 * @param  string $css
+	 *
+	 * @return void
+	 */
 	public function block_editor_css( $css ) {
 		$css .= '
 			body.post-type-wcboost_docs {

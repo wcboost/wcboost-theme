@@ -38,12 +38,13 @@ Template: maart
 }
 .plugin-page-header .page-header-title {
   font-size: var(--heading--font-size-h2);
+  margin: 0;
 }
 
 @media (min-width: 992px) {
   .plugin-page-header {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
   .plugin-page-header .page-header-title {
     font-size: var(--heading--font-size-h1);

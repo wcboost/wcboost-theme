@@ -23,27 +23,6 @@ add_action( 'init', function() {
 }, 20 );
 
 /**
- * Add classes to body
- */
-add_filter( 'body_class', function( $class ) {
-	// Adds the grid layout class for plugin archive page.
-	if ( is_post_type_archive( 'wcboost_plugin' ) ) {
-		$class[] = 'blog-layout-grid';
-	}
-
-	return $class;
-} );
-
-/**
- * Page header
- */
-add_action( 'maart_before_site_content', function() {
-	if ( is_post_type_archive( 'wcboost_plugin' ) ) {
-		get_template_part( 'template-parts/page-header/page-header-plugin' );
-	}
-} );
-
-/**
  * Get item property from the post meta
  *
  * @param string $prop
@@ -82,4 +61,5 @@ add_action( 'admin_init', function() {
     }
 }, 1 );
 
+include __DIR__ . '/inc/extension.php';
 include __DIR__ . '/inc/docs.php';
