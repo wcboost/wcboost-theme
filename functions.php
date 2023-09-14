@@ -42,7 +42,7 @@ function wcboost_item_prop( $prop, $post_id = false ) {
 }
 
 // Allow SVG uploads.
-add_filter( 'upload_mimes', function( $mines ) {
+add_filter( 'upload_mimes', function( $mimes ) {
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
 } );
@@ -59,6 +59,11 @@ add_action( 'admin_init', function() {
 	if ( current_user_can( 'administrator' ) && ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) ) {
         define('ALLOW_UNFILTERED_UPLOADS', true);
     }
+}, 1 );
+
+// Disable heartbeat.
+add_action( 'init', function() {
+	wp_deregister_script( 'heartbeat' );
 }, 1 );
 
 include __DIR__ . '/inc/extension.php';
