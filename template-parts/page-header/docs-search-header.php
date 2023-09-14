@@ -2,7 +2,7 @@
 	<div class="container">
 		<?php
 		$queried_object = get_queried_object();
-		$search_tax_query = is_tax( 'wcboost_docs_cat' ) ? ',"wcboost_docs_cat":"' . $queried_object->term_name . '"' : '';
+		$search_tax_query = is_tax( 'wcboost_docs_cat' ) ? ',"wcboost_docs_cat":"' . $queried_object->slug . '"' : '';
 		$header_content = '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|40"}}},"backgroundColor":"secondary","layout":{"type":"constrained","contentSize":"800px"}} -->
 		<div class="wp-block-group alignfull has-secondary-background-color has-background" style="padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
 		<!-- wp:spacer {"height":"60px"} -->
