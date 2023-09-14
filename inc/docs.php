@@ -27,7 +27,7 @@ class Docs {
 	 * @return bool
 	 */
 	public function is_search() {
-		return ( is_search() && isset( $_GET['post_type'] ) && 'wcboost_docs' == $_GET['post_type'] );
+		return ( is_search() && 'wcboost_docs' == get_query_var( 'post_type' ) );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Docs {
 	 * @return void
 	 */
 	public function page_header() {
-		if ( $this->is_archive() ) {
+		if ( $this->is_archive() && ! $this->is_search() ) {
 			get_template_part( 'template-parts/page-header/page-header-docs' );
 		}
 	}

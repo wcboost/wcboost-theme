@@ -178,11 +178,15 @@ Template: maart
 
 .docs-search-results .search-header {
   text-align: center;
-  margin-top: 4rem;
+  margin: 4rem 0;
   padding-top: 0;
   padding-bottom: 0;
 }
 
+.docs-search-results .no-results,
+.tax-wcboost_docs_cat .no-results {
+  text-align: center;
+}
 .docs-search-results .no-results .search-form,
 .tax-wcboost_docs_cat .no-results .search-form {
   display: none;

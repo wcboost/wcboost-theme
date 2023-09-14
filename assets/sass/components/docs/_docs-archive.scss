@@ -7,7 +7,7 @@
 
 	.search-header {
 		text-align: center;
-		margin-top: 4rem;
+		margin: 4rem 0;
 		padding-top: 0;
 		padding-bottom: 0;
 	}
@@ -16,7 +16,11 @@
 .docs-search-results,
 .tax-wcboost_docs_cat {
 
-	.no-results .search-form {
-		display: none;
+	.no-results {
+		text-align: center;
+
+		.search-form {
+			display: none;
+		}
 	}
 }

@@ -20,7 +20,7 @@ class Extension {
 	 * @return bool
 	 */
 	public function is_search() {
-		return ( is_search() && isset( $_GET['post_type'] ) && 'wcboost_docs' == $_GET['wcboost_plugin'] );
+		return ( is_search() && 'wcboost_plugin' == get_query_var( 'post_type' ) );
 	}
 
 	/**
