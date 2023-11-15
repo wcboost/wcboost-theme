@@ -7,7 +7,7 @@
  * Enqueue scripts
  */
 add_action( 'maart_after_enqueue_styles', function() {
-	wp_enqueue_style( 'maart-child', get_stylesheet_uri() );
+	wp_enqueue_style( 'wcboost', get_stylesheet_uri() );
 } );
 
 /**
@@ -57,14 +57,36 @@ add_action( 'admin_head', function() {
 
 add_action( 'admin_init', function() {
 	if ( current_user_can( 'administrator' ) && ! defined( 'ALLOW_UNFILTERED_UPLOADS' ) ) {
-        define('ALLOW_UNFILTERED_UPLOADS', true);
-    }
+		define('ALLOW_UNFILTERED_UPLOADS', true);
+	}
 }, 1 );
 
 // Disable heartbeat.
 add_action( 'init', function() {
 	wp_deregister_script( 'heartbeat' );
 }, 1 );
+
+// Checkout fields.
+add_filter( 'woocommerce_checkout_fields', function( $fields ) {
+	unset( $fields['billing']['billing_phone'] );
+	unset( $fields['billing']['billing_company'] );
+	unset( $fields['billing']['billing_country'] );
+	unset( $fields['billing']['billing_address_1'] );
+	unset( $fields['billing']['billing_address_2'] );
+	unset( $fields['billing']['billing_city'] );
+	unset( $fields['billing']['billing_state'] );
+	unset( $fields['billing']['billing_postcode'] );
+	// unset( $fields['shipping']['shipping_phone']['validate'] );
+
+	return $fields;
+} );
+
+// Buy now.
+add_filter ( 'woocommerce_add_to_cart_redirect', function() {
+	wc_clear_notices();
+
+    return wc_get_checkout_url();
+}, 10, 2 );
 
 include __DIR__ . '/inc/extension.php';
 include __DIR__ . '/inc/docs.php';

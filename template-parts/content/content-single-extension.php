@@ -8,6 +8,11 @@
  */
 
 $slug = wcboost_item_prop( 'wporg_slug' ) ?? $GLOBALS['post']->post_name;
+$product_id = wcboost_item_prop( 'product_id' );
+/**
+ * @var \WC_Product_Variable
+ */
+$_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product( $product_id ) : false;
 ?>
 
 <div id="plugin-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -33,8 +38,25 @@ $slug = wcboost_item_prop( 'wporg_slug' ) ?? $GLOBALS['post']->post_name;
 		</div><!-- .entry-content -->
 
 		<div class="plugin-sidebar">
+			<?php if ( $_product ) : ?>
+				<div class="plugin-sidebar__box plugin-sidebar__purchase woocommerce">
+					<?php $min_price = $_product->is_type( 'variable' ) ? $_product->get_variation_price() : $_product->get_regular_price(); ?>
+					<h4><?php _e( 'From', 'wcboost' ); ?> <?php echo wc_price( $min_price ); ?> / year</h4>
+					<a class="button button--primary button--large button--full" href="#pricing"><?php esc_html_e( 'Choose your plan', 'wcboost' ); ?></a>
+					<p>30 Days Money-back Guarantee</p>
+				</div>
+			<?php endif; ?>
 			<div class="plugin-sidebar__box plugin-sidebar__download">
-				<a class="button button--large button--full" href="<?php echo esc_url( wcboost_item_prop( 'download_link' ) ?? 'https://wordpress.org/plugin/' . $slug ); ?>" onclick="if ( ! this.getAttribute( 'href' ) || '#' === this.href ) {  alert('<?php esc_attr_e( 'The download link will be available soon', 'wcboost' ) ?>'); return false; }" target="_blank"><?php esc_html_e( 'Download', 'wcboost' ) ?></a>
+				<?php if ( ! $_product ) : ?>
+					<a class="button button--large button--full" href="<?php echo esc_url( 'https://wordpress.org/plugin/' . $slug ); ?>" onclick="if ( ! this.getAttribute( 'href' ) || '#' === this.href ) {  alert('<?php esc_attr_e( 'The download link will be available soon', 'wcboost' ) ?>'); return false; }" target="_blank"><?php esc_html_e( 'Download', 'wcboost' ) ?></a>
+				<?php else : ?>
+					<p>
+						<a href="<?php echo esc_url( wcboost_item_prop( 'download_link' ) ?? 'https://wordpress.org/plugin/' . $slug ); ?>" onclick="if ( ! this.href || '#' === this.href ) {  alert('<?php esc_attr_e( 'The download link will be available soon', 'wcboost' ) ?>'); return false; }" target="_blank">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+							<?php esc_html_e( 'Download free version', 'wcboost' ) ?>
+						</a>
+					</p>
+				<?php endif; ?>
 
 				<p>
 					<a href="<?php echo esc_url( wcboost_item_prop( 'docs_url' ) ) ?>" target="_blank">
@@ -95,4 +117,13 @@ $slug = wcboost_item_prop( 'wporg_slug' ) ?? $GLOBALS['post']->post_name;
 		</div>
 	</div>
 
+	<div class="plugin-content__extended">
+		<?php
+		$extended = get_extended( $GLOBALS['post']->post_content );
+
+		if ( ! empty( $extended['main'] ) ) {
+			echo do_blocks( $extended['main'] );
+		}
+		?>
+	</div>
 </div>
