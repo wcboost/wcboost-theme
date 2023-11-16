@@ -138,10 +138,13 @@ Template: maart
 @media screen and (min-width: 1024px) {
   .plugin-content__wrapper {
     display: flex;
+    align-items: flex-start;
     gap: 3rem;
   }
   .plugin-sidebar {
     flex-basis: 320px;
+    position: sticky;
+    top: 1rem;
   }
 }
 .plugin-header .plugin-thumbnail-link {
@@ -195,3 +198,5 @@ Template: maart
 .tax-wcboost_docs_cat .no-results .search-form {
   display: none;
 }
+
+/*# sourceMappingURL=style.css.map */

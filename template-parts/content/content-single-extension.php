@@ -40,7 +40,7 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 		<div class="plugin-sidebar">
 			<?php if ( $_product ) : ?>
 				<div class="plugin-sidebar__box plugin-sidebar__purchase woocommerce">
-					<?php $min_price = $_product->is_type( 'variable' ) ? $_product->get_variation_price() : $_product->get_regular_price(); ?>
+					<?php $min_price = $_product->is_type( 'variable' ) ? $_product->get_variation_price( 'min', true ) : $_product->get_regular_price(); ?>
 					<h4><?php _e( 'From', 'wcboost' ); ?> <?php echo wc_price( $min_price ); ?> / year</h4>
 					<a class="button button--primary button--large button--full" href="#pricing"><?php esc_html_e( 'Choose your plan', 'wcboost' ); ?></a>
 					<p>30 Days Money-back Guarantee</p>
@@ -60,7 +60,7 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 
 				<p>
 					<a href="<?php echo esc_url( wcboost_item_prop( 'docs_url' ) ) ?>" target="_blank">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M25.7 9.3l-7-7c-.2-.2-.4-.3-.7-.3H8c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-.3-.1-.5-.3-.7zM18 4.4l5.6 5.6H18V4.4zM24 28H8V4h8v6c0 1.1.9 2 2 2h6v16z" fill="currentColor"/><path d="M10 22h12v2H10z" fill="currentColor"/><path d="M10 16h12v2H10z" fill="currentColor"/></svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
 						<?php esc_html_e( 'Documentation', 'wcboost' ) ?>
 					</a>
 				</p>
@@ -96,22 +96,10 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 						<span><?php esc_html_e( 'WordPress', 'wcboost' ) ?></span>
 						<strong><?php echo wcboost_item_prop( 'wp_version' ); ?>+</strong>
 					</li>
-					<?php if ( $tested = wcboost_item_prop( 'wp_tested' ) ) : ?>
-						<li>
-							<span><?php esc_html_e( 'WordPress tested with', 'wcboost' ) ?></span>
-							<strong><?php echo esc_html( $tested ); ?></strong>
-						</li>
-					<?php endif; ?>
 					<li>
 						<span><?php esc_html_e( 'WooCommerce', 'wcboost' ) ?></span>
 						<strong><?php echo wcboost_item_prop( 'wc_version' ); ?>+</strong>
 					</li>
-					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-						<li>
-							<span><?php esc_html_e( 'WooCommerce tested with', 'wcboost' ) ?></span>
-							<strong><?php echo WC()->version; ?></strong>
-						</li>
-					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
@@ -121,7 +109,7 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 		<?php
 		$extended = get_extended( $GLOBALS['post']->post_content );
 
-		if ( ! empty( $extended['main'] ) ) {
+		if ( ! empty( $extended['extended'] ) ) {
 			echo do_blocks( $extended['main'] );
 		}
 		?>

@@ -87,10 +87,13 @@
 
 	.plugin-content__wrapper {
 		display: flex;
+		align-items: flex-start;
 		gap: 3rem;
 	}
 
 	.plugin-sidebar {
 		flex-basis: 320px;
+		position: sticky;
+		top: 1rem;
 	}
 }
