@@ -14,7 +14,19 @@ add_action( 'maart_after_enqueue_styles', function() {
  * Add footer sections
  */
 add_action( 'init', function() {
+	if ( is_admin() ) {
+		return;
+	}
+
 	$maart = \Maart\Theme::instance();
+
+	// Modify header.
+	$header = $maart->frontend->get_component( 'header' );
+
+	$header->get_section( 'header-main' )->remove_component( 'search_icon', 'right', 20 );
+
+
+	// Modify footer.
 	$footer = $maart->frontend->get_component( 'footer' );
 
 	$footer_widgets = new \Maart\Structure\Base\Section( 'footer-widgets' );
