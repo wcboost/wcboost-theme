@@ -1,6 +1,5 @@
 {
 	"name": "wcboost",
-	"version": "0.2",
 	"description": "WordPress theme for website wcboost.com",
 	"author": "WCBoost",
 	"homepage": "https://wcboost.com/",
@@ -25,8 +24,8 @@
 	"scripts": {
 		"watch": "sass assets/sass/style.scss:style.css --style=expanded --source-map --watch",
 		"compile:css": "sass assets/sass/style.scss:style.css --style=expanded --no-source-map",
-		"compile:rtl": "rtlcss style.css style-rtl.css",
 		"compile": "run-s \"compile:*\"",
-		"zip": "cd .. && rm -f wcboost.zip && zip -r wcboost.zip wcboost-theme/ -x '*/.*' '*.lock' '*.map' '.stylelintrc-css.json' '*.config.js' '*/node_modules/*' '*/src/*' '*/sass/*' '*/package.json' '*/package-lock.json' && cd wcboost-theme"
+		"zip": "cd .. && rm -f wcboost.zip && zip -r wcboost.zip wcboost-theme/ -x '*/.*' '*.lock' '*.map' '.stylelintrc-css.json' '*.config.js' '*/node_modules/*' '*/src/*' '*/sass/*' '*/package.json' '*/package-lock.json' && cd wcboost-theme",
+		"bundle": "npm run compile && npm run zip"
 	}
 }

@@ -40,6 +40,31 @@ Template: maart
   display: inline-block;
 }
 
+.header-top {
+  color: var(--global--color--primary--contrast);
+  background-color: var(--global--color--primary);
+}
+.header-top a {
+  color: inherit;
+  text-decoration: underline;
+}
+.header-top a:hover {
+  text-decoration-thickness: 2px;
+}
+.header-top .section-columns {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 0.75rem 0;
+}
+
+.section--layout-center .section-columns {
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.header-top__center {
+  text-align: center;
+}
+
 .plugin-page-header {
   text-align: center;
   padding: 2rem 0;
@@ -176,6 +201,9 @@ Template: maart
 }
 .single-wcboost_docs {
   --header--divider: 0px;
+}
+.single-wcboost_docs h1.entry-title {
+  font-size: 54px;
 }
 
 .tax-wcboost_docs_cat,
