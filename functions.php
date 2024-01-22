@@ -172,3 +172,4 @@ add_action( 'wp_footer', function() {
 
 include __DIR__ . '/inc/extension.php';
 include __DIR__ . '/inc/docs.php';
+include __DIR__ . '/inc/refund.php';
