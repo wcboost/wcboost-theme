@@ -31,7 +31,13 @@ add_action( 'woocommerce_order_details_after_customer_details', function( $order
 		return;
 	}
 
-	$refund_page_url = get_permalink( $refund_page_id );
+	$action = add_query_arg(
+		[
+			'key'  => $order->get_order_key(),
+			'hash' => md5( time() ),
+		],
+		get_permalink( $refund_page_id )
+	);
 	$refund_period   = intval( get_theme_mod( 'refund_period', 14 ) );
 	$completed_date  = $order->get_date_completed();
 	$diff            = $completed_date->diff( new DateTime( 'now' ) )->format( '%a' );
@@ -54,7 +60,7 @@ add_action( 'woocommerce_order_details_after_customer_details', function( $order
 			<p>
 			If you still want to request a refund, please use the button below and we will process it as soon as possible.
 			</p>
-			<form action="<?php echo esc_url( $refund_page_url ); ?>" method="post">
+			<form action="<?php echo esc_url( $action ); ?>" method="post">
 				<input type="hidden" name="order_id" value="<?php echo $order->get_id(); ?>" />
 				<input type="hidden" name="action" value="refund" />
 				<?php wp_nonce_field( 'wcboost-refund-' . $order->get_id() ); ?>
@@ -71,6 +77,10 @@ add_action( 'template_redirect', function() {
 
 	if ( ! $refund_page_id || ! is_page( $refund_page_id ) ) {
 		return;
+	}
+
+	if ( function_exists( 'wc_nocache_headers' ) ) {
+		wc_nocache_headers();
 	}
 
 	if ( current_user_can( 'administrator' ) ) {
