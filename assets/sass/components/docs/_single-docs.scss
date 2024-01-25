@@ -4,4 +4,47 @@
 	h1.entry-title {
 		font-size: 54px;
 	}
+
+	.post-navigation {
+		padding-top: 2rem;
+		border-top: 1px solid var(--color--border);
+
+		a:hover .nav-links__text {
+			box-shadow: none;
+			text-decoration: underline;
+			text-decoration-thickness: 1px;
+		}
+	}
+}
+
+.wp-block-rank-math-toc-block {
+	padding: 1.5rem 2rem;
+	background-color: rgba(var(--global--color--primary--rgb), 0.1);
+
+	> :first-child {
+		margin-top: 0;
+	}
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+
+	ul,
+	ol {
+		margin-left: 0;
+	}
+
+	li {
+		margin: 0.5em 0;
+	}
+
+	a {
+		text-decoration: none;
+		color: inherit;
+		font-weight: 500;
+
+		&:hover {
+			box-shadow: 0 0 0 transparent, inset 0 -1px 0;
+		}
+	}
 }
