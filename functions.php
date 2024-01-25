@@ -170,6 +170,15 @@ add_action( 'wp_footer', function() {
 	<?php
 } );
 
-include __DIR__ . '/inc/extension.php';
-include __DIR__ . '/inc/docs.php';
-include __DIR__ . '/inc/refund.php';
+
+if ( class_exists( '\WCBoost\Com\Core\Plugins' ) ) {
+	include __DIR__ . '/inc/extension.php';
+}
+
+if ( class_exists( '\WCBoost\Com\Core\Docs' ) ) {
+	include __DIR__ . '/inc/docs.php';
+}
+
+if ( class_exists( 'WooCommerce' ) ) {
+	include __DIR__ . '/inc/refund.php';
+}
