@@ -12,10 +12,32 @@ class Docs {
 	 * Constructor
 	 */
 	public function __construct() {
+		add_action( 'after_setup_theme', [ $this, 'setup' ], 20 );
+
 		add_action( 'wp', [ $this, 'template_hooks' ] );
 		add_action( 'wp', [ $this, 'fix_post_excerpt' ], 20 );
 
 		add_filter( 'maart_block_editor_css', [ $this, 'block_editor_css'] );
+
+		add_filter( 'maart_get_layout', [ $this, 'sidebar_layout' ] );
+		add_filter( 'maart_sidebar_template_name', [ $this, 'sidebar_template' ] );
+		// add_filter( 'maart_sidebar_id', [ $this, 'sidebar_id' ] );
+	}
+
+	/**
+	 * Setup theme support for docs
+	 *
+	 * @return void
+	 */
+	public function setup() {
+		register_sidebar( [
+			'name'          => esc_html__( 'Docs Sidebar', 'wcboost' ),
+			'id'            => 'sidebar-docs',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		] );
 	}
 
 	public function template_hooks() {
@@ -162,7 +184,7 @@ class Docs {
 	 */
 	public function content_container( $container ) {
 		if ( $this->is_single() || $this->is_archive() || $this->is_search() ) {
-			$container = 'container--narrow';
+			$container = 'container';
 		}
 
 		return $container;
@@ -213,6 +235,44 @@ class Docs {
 		';
 
 		return $css;
+	}
+
+	/**
+	 * Change the sidebar layout
+	 *
+	 * @param  string $layout
+	 *
+	 * @return string
+	 */
+	public function sidebar_layout( $layout ) {
+		if ( $this->is_single() ) {
+			$layout = 'sidebar-left';
+		}
+
+		return $layout;
+	}
+
+	/**
+	 * Set the sidebar template for docs
+	 *
+	 * @param  string $name
+	 *
+	 * @return string
+	 */
+	public function sidebar_template( $name ) {
+		if ( $this->is_docs() ) {
+			return 'docs';
+		}
+
+		return $name;
+	}
+
+	public function sidebar_id( $id ) {
+		if ( $this->is_docs() ) {
+			$id = 'sidebar-docs';
+		}
+
+		return $id;
 	}
 }
 

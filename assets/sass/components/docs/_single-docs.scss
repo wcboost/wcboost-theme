@@ -1,5 +1,6 @@
 .single-wcboost_docs {
 	--header--divider: 0px;
+	--sidebar--width: 240px;
 
 	h1.entry-title {
 		font-size: 54px;
@@ -45,6 +46,44 @@
 
 		&:hover {
 			box-shadow: 0 0 0 transparent, inset 0 -1px 0;
+		}
+	}
+}
+
+.same-cat-docs-widget {
+
+	ul {
+		font-size: 0.875rem;
+		list-style: none;
+		padding-left: 0;
+	}
+
+	li {
+		line-height: 1.5;
+		margin: 1em 0;
+	}
+
+	a {
+		color: inherit;
+
+		&:hover {
+			text-decoration: none;
+			box-shadow: 0 0 0 transparent, inset 0 -1px 0;
+		}
+	}
+
+	.current-docs {
+		color: var(--color--desc);
+		font-style: italic;
+		text-decoration: underline;
+	}
+
+	.docs-more-link {
+		font-size: 0.75rem;
+		margin-top: 2em;
+
+		a {
+			font-weight: 500;
 		}
 	}
 }
