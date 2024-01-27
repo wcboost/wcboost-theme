@@ -52,7 +52,7 @@ class Docs {
 		}
 
 		if ( $this->is_single() ) {
-			add_action( 'maart_before_main_content', [ \Maart\Theme::instance()->module_manager->get( 'breadcrumbs' ), 'breadcrumb' ] );
+			add_action( 'maart_before_main_content', [ __CLASS__, 'breadcrumb' ] );
 			add_filter( 'maart_single_post_header_meta', '__return_empty_array' );
 			add_action( 'maart_after_main_loop', [ $this, 'singular_navigation' ] );
 		}
@@ -269,12 +269,33 @@ class Docs {
 		return $name;
 	}
 
+	/**
+	 * Change the default sidebar id for docs
+	 *
+	 * @param  string $id
+	 *
+	 * @return string
+	 */
 	public function sidebar_id( $id ) {
 		if ( $this->is_docs() ) {
 			$id = 'sidebar-docs';
 		}
 
 		return $id;
+	}
+
+	/**
+	 * Display the breadcrumbs for docs
+	 *
+	 * @return void
+	 */
+	public static function breadcrumb() {
+		$module = \Maart\Theme::instance()->module_manager->get( 'breadcrumbs' );
+		?>
+		<div class="maart-breadcrumb maart-breacrumb--theme">
+			<?php $module->default_breadcrumb(); ?>
+		</div>
+		<?php
 	}
 }
 
