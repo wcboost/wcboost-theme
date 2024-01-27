@@ -4,8 +4,8 @@ Author: WCBoost
 Theme URI: https://wcboost.com/
 Author URI: https://wcboost.com
 Description: Private WordPress theme for wcboost.com
-Version: 0.4
-Tested up to: 6.3
+Version: 0.5
+Tested up to: 6.4
 Requires PHP: 7.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
@@ -276,19 +276,12 @@ Template: maart
 }
 
 .docs-search-results .search-header {
-  text-align: center;
   margin: 4rem 0;
   padding-top: 0;
   padding-bottom: 0;
 }
 
-.docs-search-results .no-results,
-.tax-wcboost_docs_cat .no-results {
-  text-align: center;
-}
 .docs-search-results .no-results .search-form,
 .tax-wcboost_docs_cat .no-results .search-form {
   display: none;
 }
-
-/*# sourceMappingURL=style.css.map */
