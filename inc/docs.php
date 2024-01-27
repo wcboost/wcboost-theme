@@ -183,7 +183,9 @@ class Docs {
 	 * @return void
 	 */
 	public function content_container( $container ) {
-		if ( $this->is_single() || $this->is_archive() || $this->is_search() ) {
+		if ( $this->is_archive() || $this->is_search() ) {
+			$container = 'container--narrow';
+		} elseif ( $this->is_single() ) {
 			$container = 'container';
 		}
 
