@@ -120,10 +120,16 @@ add_filter( 'woocommerce_checkout_fields', function( $fields ) {
 } );
 
 // Buy now.
-add_filter ( 'woocommerce_add_to_cart_redirect', function() {
-	wc_clear_notices();
+add_filter ( 'woocommerce_add_to_cart_redirect', function( $url, $adding ) {
+	// Clear notices for real actions only.
+	// Avoid always clear notices.
+	if ( $adding ) {
+		wc_clear_notices();
+	}
 
-    return wc_get_checkout_url();
+    $url = wc_get_checkout_url();
+
+	return $url;
 }, 10, 2 );
 
 add_action( 'maart_customize_register', function( $manager ) {
@@ -170,6 +176,9 @@ add_action( 'wp_footer', function() {
 	<?php
 } );
 
+add_filter( 'woocommerce_downloadable_product_name', function() {
+	return 'Download';
+} );
 
 if ( class_exists( '\WCBoost\Com\Core\Plugins' ) ) {
 	include __DIR__ . '/inc/extension.php';
