@@ -285,3 +285,92 @@ Template: maart
 .tax-wcboost_docs_cat .no-results .search-form {
   display: none;
 }
+
+.wcboost-subscription-section {
+  margin-bottom: var(--global--spacing-lg);
+}
+.wcboost-subscription-section:last-child {
+  margin-bottom: 0;
+}
+.wcboost-subscription-section > h2 {
+  font-size: var(--heading--font-size-h3);
+}
+.wcboost-subscription-section > h2:first-child {
+  margin-top: 0;
+}
+
+.wcboost-subscription-details__list > p {
+  margin: 0.5em 0;
+}
+.wcboost-subscription-details__list [role=status] {
+  font-weight: 600;
+}
+.wcboost-subscription-details__list .subs-active [role=status] {
+  color: var(--global--color--success);
+}
+
+.wcboost-subscription-activation__domains {
+  margin-top: 1em;
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.wcboost-subscription-activation__domains li {
+  border-top: 1px solid var(--color--border);
+  padding: 0.625rem 0;
+}
+.wcboost-subscription-activation__domains li:last-child {
+  border-bottom: 1px solid var(--color--border);
+}
+
+.wcboost-subscription-activation__domain-status {
+  color: var(--color--divider);
+  font-size: var(--global--font-size-xs);
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: lowercase;
+  display: inline-block;
+  padding: 3px 5px;
+  margin-left: 6px;
+  border-radius: 2px;
+  background-color: var(--color--border);
+}
+.wcboost-subscription-activation__domain-status.status-active {
+  color: #fff;
+  background-color: var(--global--color--success);
+}
+
+.wcboost-subscription-activation__actions {
+  font-size: var(--global--font-size-xs);
+  display: flex;
+  gap: 1em;
+}
+.wcboost-subscription-activation__actions .remove-domain-link {
+  color: var(--color--desc);
+}
+.wcboost-subscription-activation__actions .remove-domain-link:hover {
+  color: var(--global--color--critical);
+}
+
+@media (min-width: 768px) {
+  .wcboost-subscription-activation__domains,
+  .wcboost-subscription-form-add-domain {
+    margin-left: 4.5rem;
+  }
+  .wcboost-subscription-activation__actions {
+    display: flex;
+    padding-left: 2.5em;
+    margin-left: auto;
+  }
+  .wcboost-subscription-activation__domains li {
+    display: flex;
+    align-items: baseline;
+  }
+}
+@media (hover: hover) {
+  .wcboost-subscription-activation__domains li:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
