@@ -89,6 +89,10 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 						</strong>
 					</li>
 					<li>
+						<span><?php esc_html_e( 'Active installs', 'wcboost' ) ?></span>
+						<strong><?php echo number_format_i18n( wcboost_item_prop( 'active_installs' ) ); ?>+</strong>
+					</li>
+					<li>
 						<span><?php esc_html_e( 'PHP', 'wcboost' ) ?></span>
 						<strong><?php echo wcboost_item_prop( 'php_version' ); ?>+</strong>
 					</li>
