@@ -1,0 +1,21 @@
+.wpcf7-form-control:not([type="radio"], [type="checkbox"],[type="submit"]) {
+	width: 100%;
+}
+
+br + .wpcf7-form-control-wrap {
+	display: block;
+}
+
+.wpcf7 input[type="file"] {
+	padding: calc(1.5 * var(--form--padding-vertical)) var(--form--padding-horizontal);
+	border-radius: var(--button--border-radius);
+	background-color: rgba(var(--color--button--rgb), 0.25);
+}
+
+.wpcf7-spinner {
+	vertical-align: middle;
+}
+
+.wpcf7 form .wpcf7-response-output {
+	margin: 1.5em 0;
+}

@@ -188,6 +188,8 @@ if ( class_exists( '\WCBoost\Com\Core\Docs' ) ) {
 	include __DIR__ . '/inc/docs.php';
 }
 
+include __DIR__ . '/inc/support.php';
+
 if ( class_exists( 'WooCommerce' ) ) {
 	include __DIR__ . '/inc/refund.php';
 }

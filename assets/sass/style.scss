@@ -38,8 +38,13 @@ Template: maart
 	width: 100%;
 }
 
+.hidden {
+	display: none;
+}
+
 @import "components/header";
 @import "components/page-header/page-header";
 @import "components/extension/extension";
 @import "components/docs/docs";
 @import "components/subscriptions/details";
+@import "components/cf7";
