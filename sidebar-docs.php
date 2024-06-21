@@ -2,15 +2,21 @@
 	<?php
 	if ( is_singular() ) : ?>
 		<?php
+		$cat  = wp_get_post_terms( $GLOBALS['post']->ID, 'wcboost_docs_cat' );
+		$cat  = ! is_wp_error( $cat ) ? current( $cat ) : false;
 		$docs = new WP_Query( [
 			'post_type'      => 'wcboost_docs',
 			'posts_per_page' => 20,
 			'order_by'       => 'date',
 			'order'          => 'ASC',
 			'fields'         => 'ids',
+			'tax_query'      => [
+				[
+					'taxonomy' => 'wcboost_docs_cat',
+					'terms' => $cat ? $cat->term_id : '',
+				]
+			],
 		] );
-		$cat = wp_get_post_terms( $GLOBALS['post']->ID, 'wcboost_docs_cat' );
-		$cat = ! is_wp_error( $cat ) ? current( $cat ) : false;
 		?>
 		<?php if ( $docs->have_posts() ) : ?>
 			<section class="widget same-cat-docs-widget">
