@@ -60,6 +60,10 @@ add_action( 'maart_component_section_text', function( $data ) {
 	}
 } );
 
+add_filter( 'maart_post_read_more_text', function() {
+	return 'Continue reading';
+} );
+
 /**
  * Get item property from the post meta
  *
@@ -107,7 +111,7 @@ add_action( 'init', function() {
 // Checkout fields.
 add_filter( 'woocommerce_checkout_fields', function( $fields ) {
 	unset( $fields['billing']['billing_phone'] );
-	unset( $fields['billing']['billing_company'] );
+	// unset( $fields['billing']['billing_company'] );
 	unset( $fields['billing']['billing_country'] );
 	unset( $fields['billing']['billing_address_1'] );
 	unset( $fields['billing']['billing_address_2'] );

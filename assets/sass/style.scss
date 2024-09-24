@@ -42,6 +42,10 @@ Template: maart
 	display: none;
 }
 
+.single-post .entry-content {
+	font-size: 1.125rem;
+}
+
 @import "components/header";
 @import "components/page-header/page-header";
 @import "components/extension/extension";
