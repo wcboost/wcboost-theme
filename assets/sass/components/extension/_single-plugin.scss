@@ -27,6 +27,16 @@
 			border-radius: var(--form--border-radius);
 		}
 	}
+
+
+	ul,
+	ol {
+		margin-left: 0;
+	}
+
+	li {
+		margin: 1em 0;
+	}
 }
 
 .plugin-sidebar__box {
@@ -42,6 +52,13 @@
 
 	> :last-child {
 		margin-bottom: 0;
+	}
+}
+
+.plugin-sidebar__purchase {
+
+	.plugin-sidebar__heading {
+		font-size: var(--heading--font-size-h4);
 	}
 }
 

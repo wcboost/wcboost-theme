@@ -129,6 +129,13 @@ Template: maart
   display: block;
   border-radius: var(--form--border-radius);
 }
+.plugin-content ul,
+.plugin-content ol {
+  margin-left: 0;
+}
+.plugin-content li {
+  margin: 1em 0;
+}
 
 .plugin-sidebar__box {
   font-size: 0.875rem;
@@ -142,6 +149,10 @@ Template: maart
 }
 .plugin-sidebar__box > :last-child {
   margin-bottom: 0;
+}
+
+.plugin-sidebar__purchase .plugin-sidebar__heading {
+  font-size: var(--heading--font-size-h4);
 }
 
 .plugin-sidebar__download .button {
@@ -321,6 +332,10 @@ Template: maart
   color: var(--global--color--success);
 }
 
+.wcboost-subscription-details__actions {
+  margin-top: 2rem;
+}
+
 .wcboost-subscription-activation__domains {
   margin-top: 1em;
   margin-left: 0;
@@ -405,3 +420,5 @@ br + .wpcf7-form-control-wrap {
 .wpcf7 form .wpcf7-response-output {
   margin: 1.5em 0;
 }
+
+/*# sourceMappingURL=style.css.map */

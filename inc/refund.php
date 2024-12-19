@@ -25,6 +25,11 @@ add_action( 'woocommerce_order_details_after_customer_details', function( $order
 		return;
 	}
 
+	// Do not support refunds for renewal orders.
+	if ( $order->get_meta( '_subscription_renewal' ) ) {
+		return;
+	}
+
 	$refund_page_id = get_theme_mod( 'refund_page_id' );
 
 	if ( ! $refund_page_id ) {

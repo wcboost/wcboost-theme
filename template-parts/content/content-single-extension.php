@@ -39,9 +39,9 @@ $_product = function_exists( 'wc_get_product' ) && $product_id ? wc_get_product(
 
 		<div class="plugin-sidebar">
 			<?php if ( $_product ) : ?>
-				<div class="plugin-sidebar__box plugin-sidebar__purchase woocommerce">
+				<div class="plugin-sidebar__box plugin-sidebar__purchase woocommerce <?php echo $_product->is_on_sale() ? 'plugin-sidebar__sale' : ''; ?>">
 					<?php $min_price = $_product->is_type( 'variable' ) ? $_product->get_variation_price( 'min', true ) : $_product->get_regular_price(); ?>
-					<h4><?php _e( 'From', 'wcboost' ); ?> <?php echo wc_price( $min_price ); ?> / year</h4>
+					<p class="plugin-sidebar__heading wp-block-heading"><?php _e( 'From', 'wcboost' ); ?> <?php echo wc_price( $min_price ); ?> / year</p>
 					<a class="button button--primary button--large button--full" href="#pricing"><?php esc_html_e( 'Choose your plan', 'wcboost' ); ?></a>
 					<p>30 Days Money-back Guarantee</p>
 				</div>
