@@ -1,17 +1,14 @@
 <?php
 
 /**
- * Functions
+ * Theme functions
  */
 
 /**
  * Enqueue scripts
  */
 add_action('maart_after_enqueue_styles', function () {
-	$version = filemtime(get_stylesheet_directory() . '/style.css');
-	$version = $version ?? wp_get_theme()->get('Version');
-
-	wp_enqueue_style('wcboost', get_stylesheet_uri(), null, $version);
+	wp_enqueue_style('wcboost', get_stylesheet_uri(), null, wp_get_theme()->get('Version'));
 });
 
 add_action('after_setup_theme', function () {
@@ -19,6 +16,8 @@ add_action('after_setup_theme', function () {
 });
 
 add_action('init', function () {
+	register_nav_menu( 'footer-menu', esc_html__( 'Footer Menu', 'wcboost' ) );
+
 	register_sidebar([
 		'name'          => esc_html__('Footer 1', 'wcboost'),
 		'id'            => 'footer-1',
@@ -60,14 +59,8 @@ add_action('init', function () {
 	]);
 });
 
-/**
- * Add footer sections
- */
+// Header sections.
 add_action('wp', function () {
-	// if ( is_admin() ) {
-	// 	return;
-	// }
-
 	$maart = \Maart\Theme::instance();
 
 	// Modify header.
@@ -119,16 +112,35 @@ add_action('wp', function () {
 	// ] );
 
 	// $header->add_section($topbar);
+}, 20);
 
+// Modify footer main.
+add_action( 'wp', function () {
+	$maart = \Maart\Theme::instance();
+	$footer = $maart->frontend->get_component('footer')->get_section('footer-main');
+	$footer->remove_component( 'copyright', 'center', 10 );
+	$footer->add_component( [
+		'type'     => 'copyright',
+		'priority' => 10,
+		'column'   => 'left',
+	] );
+	$footer->add_component( [
+		'type'     => 'menu',
+		'priority' => 10,
+		'column'   => 'right',
+	] );
+} );
 
-	// Modify footer.
+// Footer sections.
+add_action('wp', function () {
+	$maart = \Maart\Theme::instance();
 	$footer = $maart->frontend->get_component('footer');
 
 	// Footer widgets pattern.
-	$footer_widgets_template_name = get_theme_mod('footer_widgets_template_part');
+	$footer_widgets_template = get_theme_mod( 'footer_widgets_template' );
 
-	if ($footer_widgets_template_name) {
-		$footer_widgets_part = new \Maart\Structure\Base\Section('footer-widgets-pattern');
+	if ( $footer_widgets_template ) {
+		$footer_widgets_part = new \Maart\Structure\Base\Section( 'footer-widgets-pattern' );
 		$footer_widgets_part->priority = 5;
 		$footer_widgets_part->set_type('footer');
 		$footer_widgets_part->set_container('');
@@ -136,12 +148,18 @@ add_action('wp', function () {
 			'type'   => 'part',
 			'column' => 'center',
 			'data'   => [
-				'template_part' => $footer_widgets_template_name,
+				'template_part' => $footer_widgets_template,
 			],
-		]);
+		] );
 
-		$footer->add_section($footer_widgets_part);
+		$footer->add_section( $footer_widgets_part );
 	}
+});
+
+// Footer legacy widgets.
+add_action('wp', function () {
+	$maart  = \Maart\Theme::instance();
+	$footer = $maart->frontend->get_component('footer');
 
 	// Footer sidebars section.
 	$footer_widgets = new \Maart\Structure\Base\Section('footer-widgets');
@@ -180,11 +198,12 @@ add_action('wp', function () {
 		],
 	]);
 
-	if (is_active_sidebar('footer-1') || is_active_sidebar('footer-2') || is_active_sidebar('footer-3') || is_active_sidebar('footer-4')) {
+	if ( is_active_sidebar('footer-1') || is_active_sidebar('footer-2') || is_active_sidebar('footer-3') || is_active_sidebar('footer-4') ) {
 		$footer->add_section($footer_widgets);
 	}
-}, 20);
+});
 
+// Header top banner.
 add_action('maart_before_header', function () {
 	return;
 ?>
@@ -368,6 +387,7 @@ add_action('maart_before_header', function () {
 	<?php
 });
 
+// Header top text.
 add_action('maart_component_section_text', function ($data) {
 	$content = $data['content'] ?? '';
 
@@ -378,6 +398,7 @@ add_action('maart_component_section_text', function ($data) {
 	}
 });
 
+// Read more text.
 add_filter('maart_post_read_more_text', function () {
 	return 'Continue reading';
 });
@@ -492,10 +513,9 @@ if (class_exists('\WCBoost\Com\Core\Docs')) {
 	include __DIR__ . '/inc/docs.php';
 }
 
-include __DIR__ . '/inc/support.php';
-
 if (class_exists('WooCommerce')) {
 	include __DIR__ . '/inc/refund.php';
 }
 
+include __DIR__ . '/inc/support.php';
 include __DIR__ . '/inc/customizer.php';
