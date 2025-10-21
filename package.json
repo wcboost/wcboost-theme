@@ -3,11 +3,6 @@
 	"description": "WordPress theme for website wcboost.com",
 	"author": "WCBoost",
 	"homepage": "https://wcboost.com/",
-	"devDependencies": {
-		"@wordpress/scripts": "^19.2.2",
-		"sass": "^1.34.1",
-		"rtlcss": "^3.5.0"
-	},
 	"rtlcssConfig": {
 		"options": {
 			"autoRename": false,
@@ -22,10 +17,22 @@
 		"map": false
 	},
 	"scripts": {
+		"start": "run-p server watch",
 		"watch": "sass assets/sass/style.scss:style.css --style=expanded --source-map --watch",
+		"server": "browser-sync start --proxy 'https://wcboost.test' --https --files 'style.css'",
 		"compile:css": "sass assets/sass/style.scss:style.css --style=expanded --no-source-map",
-		"compile": "run-s \"compile:*\"",
-		"zip": "cd .. && rm -f wcboost.zip && zip -r wcboost.zip wcboost-theme/ -x '*/.*' '*.lock' '*.map' '.stylelintrc-css.json' '*.config.js' '*/node_modules/*' '*/src/*' '*/sass/*' '*/package.json' '*/package-lock.json' && cd wcboost-theme",
-		"bundle": "npm run compile && npm run zip"
+		"compile:prefixer": "npx postcss *.css --replace --no-map --use autoprefixer",
+		"compile": "run-p compile:*",
+		"zip": "dir-archiver --src ../wcboost-theme/ --dest ./wcboost.zip --includebasedir true --exclude .* *.md *.lock *.css.map *.js.map composer.json node_modules vendor src pnpm-lock.yaml package-lock.json package.json .travis.yml phpcs.xml.dist postcss.config.js",
+		"bundle": "run-s compile zip"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.21",
+		"browser-sync": "^3.0.4",
+		"dir-archiver": "^2.1.0",
+		"npm-run-all2": "^8.0.4",
+		"postcss": "^8.5.6",
+		"postcss-cli": "^11.0.1",
+		"uglify-js": "^3.19.3"
 	}
 }
