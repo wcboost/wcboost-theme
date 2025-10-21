@@ -77,6 +77,42 @@ Template: maart
   text-align: center;
 }
 
+.footer-main {
+  color: rgba(var(--global--color--neutral-text--rgb), 0.8);
+}
+
+.site-info a {
+  color: var(--color--text);
+}
+.site-info a:hover {
+  color: var(--global--color--primary);
+}
+
+.footer-menu .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 2rem;
+}
+.footer-menu a {
+  color: var(--color--text);
+}
+.footer-menu a:hover {
+  color: var(--global--color--primary);
+}
+
+@media (max-width: 767px) {
+  .footer-main .section-columns {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-main .section-column {
+    display: block;
+  }
+}
 .plugin-page-header {
   text-align: center;
   padding: 2rem 0;
@@ -420,3 +456,5 @@ br + .wpcf7-form-control-wrap {
 .wpcf7 form .wpcf7-response-output {
   margin: 1.5em 0;
 }
+
+/*# sourceMappingURL=style.css.map */

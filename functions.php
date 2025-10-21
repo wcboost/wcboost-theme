@@ -59,11 +59,10 @@ add_action('init', function () {
 	]);
 });
 
-// Header sections.
+// Modify header elements.
 add_action('wp', function () {
 	$maart = \Maart\Theme::instance();
 
-	// Modify header.
 	$header = $maart->frontend->get_component('header');
 	$header_main = $header->get_section('header-main');
 
@@ -99,20 +98,7 @@ add_action('wp', function () {
 			'class' => 'button--ghost button--icon header-button-account',
 		],
 	]);
-
-	// $topbar = new \Maart\Structure\Base\Section('header-top');
-	// $topbar->priority = 5;
-	// $topbar->add_component( [
-	// 	'type'     => 'text',
-	// 	'priority' => 10,
-	// 	'column'   => 'center',
-	// 	'data' => [
-	// 		'content' => '<span class="ghost-icon-ani" aria-hidden="true"></span><strong>🎃 Spooktacular Halloween Sale! Get 30% OFF <a href="https://wcboost.com/plugin/woocommerce-variation-swatches/">Premium Plugins</a></strong><span class="ghost-icon-ani is-right" aria-hidden="true">',
-	// 	],
-	// ] );
-
-	// $header->add_section($topbar);
-}, 20);
+} );
 
 // Modify footer main.
 add_action( 'wp', function () {
@@ -204,187 +190,10 @@ add_action('wp', function () {
 });
 
 // Header top banner.
-add_action('maart_before_header', function () {
-	return;
-?>
-	<section class="top-banner-section">
-		<style>
-			.top-banner {
-				/* background: linear-gradient(90deg, #ea580c, #6B21D1, #ea580c); */
-				background-image: linear-gradient(135deg, #2e1853 0%, #2b1245 25%, #4c2a8c 50%, #663399 75%, #7b40b4 100%);
-				background-size: 200% 100%;
-				color: #fff;
-				padding: 16px 20px;
-				/* animation: gradient-move 15s linear infinite; */
-				position: relative;
-				overflow: hidden;
-			}
-
-			.banner-pattern-overlay {
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
-				background-size: 20px 20px;
-				pointer-events: none;
-			}
-
-			@keyframes gradient-move {
-				0% {
-					background-position: 0% 50%;
-				}
-
-				100% {
-					background-position: 200% 50%;
-				}
-			}
-
-			.banner-content {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 24px;
-				max-width: 1200px;
-				margin: 0 auto;
-			}
-
-			.gift-icon {
-				font-size: 20px;
-			}
-
-			.top-banner__text {
-				font-size: 18px;
-				font-weight: 600;
-				color: white;
-				display: flex;
-				align-items: center;
-				gap: 8px;
-			}
-
-			.discount-highlight {
-				color: #FFD700;
-				font-weight: 800;
-			}
-
-			.code-pill {
-				background: rgba(0, 0, 0, 0.15);
-				padding: 8px;
-				margin: 0 8px;
-				border-radius: 6px;
-				font-family: monospace;
-				font-size: 16px;
-				font-weight: bold;
-				letter-spacing: 1px;
-				border: 1px solid rgba(255, 255, 255, 0.15);
-			}
-
-			.learn-more {
-				text-decoration: underline;
-				color: #FFD700;
-				font-weight: bold;
-			}
-
-			.countdown-wrapper {
-				display: flex;
-				gap: 12px;
-				align-items: center;
-			}
-
-			.countdown-item {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				min-width: 45px;
-			}
-
-			.countdown-number {
-				font-size: 20px;
-				font-weight: bold;
-				line-height: 1;
-			}
-
-			.countdown-label {
-				font-size: 12px;
-				opacity: 0.9;
-			}
-
-			@media (max-width: 767px) {
-				.banner-content {
-					flex-direction: column;
-					gap: 12px;
-					text-align: center;
-				}
-
-				.top-banner__text {
-					flex-direction: column;
-				}
-
-				.countdown-wrapper {
-					margin-top: 8px;
-				}
-			}
-		</style>
-		<div class="top-banner">
-			<div class="banner-pattern-overlay"></div>
-			<div class="banner-content">
-				<div class="top-banner__text">
-					<span class="save-text">
-						<span class="gift-icon">🎁</span>
-						SAVE <span class="discount-highlight">50% OFF</span> Everything!
-					</span>
-					<span class="use-code">
-						Use code: <span class="code-pill">BFCM2024</span>
-					</span>
-				</div>
-				<div class="countdown-wrapper">
-					<div class="countdown-item">
-						<span class="countdown-number" id="days">01</span>
-						<span class="countdown-label">days</span>
-					</div>
-					<div class="countdown-item">
-						<span class="countdown-number" id="hours">10</span>
-						<span class="countdown-label">hr</span>
-					</div>
-					<div class="countdown-item">
-						<span class="countdown-number" id="minutes">22</span>
-						<span class="countdown-label">min</span>
-					</div>
-					<div class="countdown-item">
-						<span class="countdown-number" id="seconds">07</span>
-						<span class="countdown-label">sec</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script>
-			function updateCountdown() {
-				const now = new Date();
-				const endDate = new Date('2024-12-03T23:59:59'); // Adjust this date as needed
-				const diff = endDate - now;
-
-				if (diff <= 0) {
-					document.querySelector('.top-banner').style.display = 'none';
-					return;
-				}
-
-				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-				const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-				const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-				document.getElementById('days').textContent = days.toString().padStart(2, '0');
-				document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-				document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-				document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-			}
-
-			setInterval(updateCountdown, 1000);
-		</script>
-	</section>
-	<?php
+add_action( 'maart_before_header', function () {
+	get_template_part('template-parts/header/sale');
+	// get_template_part('template-parts/header/halloween');
+	// get_template_part('template-parts/header/bfcm');
 });
 
 // Header top text.
