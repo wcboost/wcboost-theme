@@ -118,15 +118,39 @@
 		</div>
 	</div>
 
+	<?php
+	// Get WordPress timezone
+	$timezone = wp_timezone();
+
+	// Create launch date in site's timezone: November 17, 2025 at 00:00:00
+	$launch_date = new DateTime('2025-11-17 00:00:00', $timezone);
+	$launch_timestamp = $launch_date->getTimestamp();
+
+	// Get current time in site's timezone for initial calculation
+	$now = new DateTime('now', $timezone);
+	$now_timestamp = $now->getTimestamp();
+	?>
 	<script>
 		(function() {
 			const blackFridaySection = document.querySelector('#black-friday-banner');
 
+			// Cache DOM elements
+			const daysElement = blackFridaySection.querySelector('[data-days]');
+			const hoursElement = blackFridaySection.querySelector('[data-hours]');
+			const minutesElement = blackFridaySection.querySelector('[data-minutes]');
+			const secondsElement = blackFridaySection.querySelector('[data-seconds]');
+
+			// Server timestamps (in seconds, converted to milliseconds for JS)
+			const launchTimestamp = <?php echo $launch_timestamp; ?> * 1000;
+			const serverNowTimestamp = <?php echo $now_timestamp; ?> * 1000;
+			const clientNowTimestamp = Date.now();
+
 			function updateCountdown() {
-				const now = new Date();
-				// Black Friday 2025 launch day: November 17, 2025
-				const launchDate = new Date('2025-11-17T00:00:00');
-				const diff = launchDate - now;
+				// Calculate elapsed time since page load on client
+				const elapsed = Date.now() - clientNowTimestamp;
+				// Add elapsed time to server's "now" to get current time in site's timezone
+				const now = serverNowTimestamp + elapsed;
+				const diff = launchTimestamp - now;
 
 				if (diff <= 0) {
 					blackFridaySection.style.display = 'none';
@@ -138,10 +162,10 @@
 				const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 				const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-				blackFridaySection.querySelector('[data-days]').textContent = days.toString().padStart(2, '0');
-				blackFridaySection.querySelector('[data-hours]').textContent = hours.toString().padStart(2, '0');
-				blackFridaySection.querySelector('[data-minutes]').textContent = minutes.toString().padStart(2, '0');
-				blackFridaySection.querySelector('[data-seconds]').textContent = seconds.toString().padStart(2, '0');
+				daysElement.textContent = days.toString().padStart(2, '0');
+				hoursElement.textContent = hours.toString().padStart(2, '0');
+				minutesElement.textContent = minutes.toString().padStart(2, '0');
+				secondsElement.textContent = seconds.toString().padStart(2, '0');
 
 				blackFridaySection.style.display = 'block';
 			}
