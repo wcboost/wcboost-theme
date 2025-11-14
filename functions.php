@@ -193,7 +193,7 @@ add_action('wp', function () {
 add_action( 'maart_before_header', function () {
 	// get_template_part('template-parts/header/sale');
 	// get_template_part('template-parts/header/halloween');
-	// get_template_part('template-parts/header/bfcm');
+	get_template_part('template-parts/header/bfcm');
 	get_template_part('template-parts/header/black-friday');
 });
 

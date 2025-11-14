@@ -142,7 +142,10 @@
 	// Get WordPress timezone
 	$timezone = wp_timezone();
 
-	// Create end date in site's timezone: December 3, 2025 at 00:00:00
+	// Create start and end dates in site's timezone
+	$start_date = new DateTime('2025-11-17 00:00:00', $timezone);
+	$start_timestamp = $start_date->getTimestamp();
+
 	$end_date = new DateTime('2025-12-03 00:00:00', $timezone);
 	$end_timestamp = $end_date->getTimestamp();
 
@@ -161,6 +164,7 @@
 			const secondsElement = bfcmSection.querySelector('[data-seconds]');
 
 			// Server timestamps (in seconds, converted to milliseconds for JS)
+			const startTimestamp = <?php echo $start_timestamp; ?> * 1000;
 			const endTimestamp = <?php echo $end_timestamp; ?> * 1000;
 			const serverNowTimestamp = <?php echo $now_timestamp; ?> * 1000;
 			const clientNowTimestamp = Date.now();
@@ -170,11 +174,14 @@
 				const elapsed = Date.now() - clientNowTimestamp;
 				// Add elapsed time to server's "now" to get current time in site's timezone
 				const now = serverNowTimestamp + elapsed;
-				const diff = endTimestamp - now;
 
-				if (diff <= 0) {
+				// Don't show banner before start date or after end date
+				if (now < startTimestamp || now >= endTimestamp) {
+					bfcmSection.style.display = 'none';
 					return;
 				}
+
+				const diff = endTimestamp - now;
 
 				const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 				const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
